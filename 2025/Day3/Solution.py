@@ -17,22 +17,35 @@ for i in range(0,len(text)):
             
 print("First Answer: ",answer)
 
-answer2=0
-for i in range(0,len(text)):
-    current_max=0
-    for first in range(0,len(text[i])):
-        for second in range(first+1,len(text[i])):
-            for third in range(second+1,len(text[i])):
-                for fourth in range(third+1,len(text[i])):
-                    for fifth in range(fourth+1,len(text[i])):
-                        for sixth in range(fifth+1,len(text[i])):
-                            for seventh in range(sixth+1,len(text[i])):
-                                for eighth in range(seventh+1,len(text[i])):
-                                    for ninth in range(eighth+1,len(text[i])):
-                                        for tenth in range(ninth+1,len(text[i])):
-                                            for eleventh in range(tenth+1,len(text[i])):
-                                                for twelfth in range(eleventh+1,len(text[i])):
-                                                    current_max=max(int(text[i][first]+text[i][second]+text[i][third]+text[i][fourth]+text[i][fifth]+text[i][sixth]+text[i][seventh]+text[i][eighth]+text[i][ninth]+text[i][tenth]+text[i][eleventh]+text[i][twelfth]),current_max)
-    print(i, current_max)
-    answer2+=current_max        
-print("Second Answer: ",answer2)
+
+from functools import lru_cache
+
+def greatest(sequence, allowed=12):
+
+    @lru_cache(None)
+    def dfs(index, used):
+        if used == allowed:
+            return 0
+        if len(sequence) - index < allowed - used:
+            return -1
+        if index == len(sequence):
+            return -1
+        skip = dfs(index + 1, used)
+        take_suffix = dfs(index + 1, used + 1)
+        if take_suffix == -1:
+            take = -1
+        else:
+            place = 10 ** (allowed - used - 1)
+            take = int(sequence[index]) * place + take_suffix
+
+        return max(skip, take)
+
+    return dfs(0, 0)
+
+answer2 = 0
+for s in text:
+    x = greatest(s, 12)
+    answer2 += x
+    
+
+print("Second Answer:", answer2)
