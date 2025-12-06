@@ -1,7 +1,6 @@
 from pathlib import Path
 
 def calculate_result(nums, operator):
-    """Calculate result based on operator."""
     if operator == "+":
         return sum(nums)
     elif operator == "*":
@@ -23,8 +22,6 @@ def solve():
                                   lines[2].split(), lines[3].split(), operators)
     )
     print("First Answer:", answer1)
-    
-    # Part 2
     reversed_lines = [line[::-1] for line in lines]
     reversed_operators = operators[::-1]
     answer2 = 0
