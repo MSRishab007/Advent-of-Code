@@ -9,8 +9,6 @@ def parse_input(filename):
             mapk[inp].extend(outs)
     return mapk
 mapk=parse_input("2025/Day11/input.txt")
-visited=set()
-visited.add("you")
 @cache
 def helper(node):
     if node=="out":
