@@ -2,29 +2,43 @@ with open("2015/Day03/input.txt","r") as file:
     directions = file.read().strip()
     visited = set()
     x, y = 0, 0
-    m,n=0,0
+    x1,y1 = 0,0
+    x2,y2 = 0,0
     visited.add((x, y))
+    visited1 = set()
+    visited1.add((x1,y1))
     for index,char in enumerate(directions):
         if index % 2 == 0:
             if char == "^":
-                y += 1
+                y1 += 1
+                y+=1
             elif char == "v":
-                y -= 1
+                y1 -= 1
+                y-=1
             elif char == "<":
-                x -= 1
+                x1 -= 1
+                x-=1
             elif char == ">":
-                x += 1
-            visited.add((x, y))
+                x1 += 1
+                x+=1
+            visited1.add((x1, y1))
         else:
             if char == "^":
-                n += 1
+                y2 += 1
+                y+=1
             elif char == "v":
-                n -= 1
+                y2 -= 1
+                y-=1
             elif char == "<":
-                m -= 1
+                x2 -= 1
+                x-=1
             elif char == ">":
-                m += 1
-            visited.add((m, n))
+                x2 += 1
+                x+=1
+            visited1.add((x2, y2))
+        
         visited.add((x, y))
 answer=len(visited)
+answer2=len(visited1)
 print("First Answer:", answer)
+print("Second Answer:", answer2)
